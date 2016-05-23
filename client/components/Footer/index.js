@@ -4,27 +4,64 @@ import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/filters'
 import classnames from 'classnames'
 import style from './style.css'
 
+const translatedText = {
+  showAll: {
+    '中文': '所有',
+    'English': 'All'
+  },
+  showActive: {
+    '中文': '活性',
+    'English': 'Active'
+  },
+  showCompleted: {
+    '中文': '完成',
+    'English': 'Completed'
+  },
+  todoCount: {
+    '中文': function(count) {
+      switch(count) {
+        case 0:
+          return [<strong>0</strong>, '物品离开'];
+        case 1:
+          return ['还剩', <strong>1</strong>, '个项目'];
+        default:
+          return [<strong>{count}</strong>, '项左'];
+      }
+    },
+    'English': function(count) {
+      switch(count) {
+        case 0:
+          return [<strong>No</strong>, ' items left'];
+        case 1:
+          return [<strong>1</strong>, ' item left'];
+        default:
+          return [<strong>{count}</strong>, ' items left'];
+      }
+    }
+  }
+};
+
 const FILTER_TITLES = {
-  [SHOW_ALL]: 'All',
-  [SHOW_ACTIVE]: 'Active',
-  [SHOW_COMPLETED]: 'Completed'
-}
+  [SHOW_ALL]: translatedText.showAll,
+  [SHOW_ACTIVE]: translatedText.showActive,
+  [SHOW_COMPLETED]: translatedText.showCompleted
+};
 
 class Footer extends Component {
   renderTodoCount() {
-    const { activeCount } = this.props
-    const itemWord = activeCount === 1 ? 'item' : 'items'
+    const { activeCount, language } = this.props;
 
     return (
       <span className={style.count}>
-        <strong>{activeCount || 'No'}</strong> {itemWord} left
+        {translatedText.todoCount[language](activeCount)}
       </span>
     )
   }
 
   renderFilterLink(filter) {
-    const title = FILTER_TITLES[filter]
-    const { filter: selectedFilter, onShow } = this.props
+    const { filter: selectedFilter, onShow, language } = this.props;
+
+    const title = FILTER_TITLES[filter][language];
 
     return (
       <a className={classnames({ [style.selected]: filter === selectedFilter })}
@@ -36,7 +73,7 @@ class Footer extends Component {
   }
 
   renderClearButton() {
-    const { completedCount, onClearCompleted } = this.props
+    const { completedCount, onClearCompleted } = this.props;
     if (completedCount > 0) {
       return (
         <button className={style.clearCompleted} onClick={onClearCompleted} >

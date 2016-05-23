@@ -40,7 +40,7 @@ class MainSection extends Component {
   }
 
   renderFooter(completedCount) {
-    const { todos } = this.props
+    const { todos, language } = this.props
     const { filter } = this.state
     const activeCount = todos.length - completedCount
 
@@ -49,6 +49,7 @@ class MainSection extends Component {
         <Footer completedCount={completedCount}
           activeCount={activeCount}
           filter={filter}
+          language={language}
           onClearCompleted={::this.handleClearCompleted}
           onShow={::this.handleShow} />
       )
