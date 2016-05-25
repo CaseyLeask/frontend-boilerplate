@@ -14,6 +14,10 @@ const translatedText = {
 };
 
 class Header extends Component {
+  static contextTypes = {
+    language: React.PropTypes.string.isRequired
+  };
+
   handleSave(text) {
     if (text.length) {
       this.props.addTodo(text)
@@ -36,7 +40,7 @@ class Header extends Component {
   }
 
   render() {
-    const { language } = this.props;
+    const { language } = this.context;
     return (
       <header>
         <h1 className={style.todos}>{translatedText.todos[language]}</h1>

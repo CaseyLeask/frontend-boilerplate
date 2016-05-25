@@ -8,8 +8,8 @@ import React from 'react'
 import App from './containers/App'
 import configure from './store'
 
-const store = configure()
-const history = syncHistoryWithStore(browserHistory, store)
+const store = configure();
+const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -19,4 +19,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('root')
-)
+);

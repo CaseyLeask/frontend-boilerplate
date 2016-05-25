@@ -48,8 +48,13 @@ const FILTER_TITLES = {
 };
 
 class Footer extends Component {
+  static contextTypes = {
+    language: React.PropTypes.string.isRequired
+  };
+
   renderTodoCount() {
-    const { activeCount, language } = this.props;
+    const { activeCount } = this.props;
+    const { language } = this.context;
 
     return (
       <span className={style.count}>
@@ -59,7 +64,8 @@ class Footer extends Component {
   }
 
   renderFilterLink(filter) {
-    const { filter: selectedFilter, onShow, language } = this.props;
+    const { filter: selectedFilter, onShow } = this.props;
+    const { language } = this.context;
 
     const title = FILTER_TITLES[filter][language];
 

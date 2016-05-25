@@ -5,16 +5,16 @@ import style from './style.css'
 
 class TodoTextInput extends Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.state = {
       text: this.props.text || ''
     }
   }
 
   handleSubmit(e) {
-    const text = e.target.value.trim()
+    const text = e.target.value.trim();
     if (e.which === 13) {
-      this.props.onSave(text)
+      this.props.onSave(text);
       if (this.props.newTodo) {
         this.setState({ text: '' })
       }
@@ -26,7 +26,7 @@ class TodoTextInput extends Component {
   }
 
   handleBlur(e) {
-    const text = e.target.value.trim()
+    const text = e.target.value.trim();
     if (!this.props.newTodo) {
       this.props.onSave(text)
     }
@@ -36,7 +36,7 @@ class TodoTextInput extends Component {
     const classes = classnames({
       [style.edit]: this.props.editing,
       [style.new]: this.props.newTodo
-    }, style.normal)
+    }, style.normal);
 
     return (
       <input className={classes}

@@ -9,27 +9,27 @@ const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
   [SHOW_ACTIVE]: todo => !todo.completed,
   [SHOW_COMPLETED]: todo => todo.completed
-}
+};
 
 class MainSection extends Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.state = { filter: SHOW_ALL }
   }
 
   handleClearCompleted() {
-    const atLeastOneCompleted = this.props.todos.some(todo => todo.completed)
+    const atLeastOneCompleted = this.props.todos.some(todo => todo.completed);
     if (atLeastOneCompleted) {
-      this.props.actions.clearCompleted()
+      this.props.actions.clearCompleted();
     }
   }
 
   handleShow(filter) {
-    this.setState({ filter })
+    this.setState({ filter });
   }
 
   renderToggleAll(completedCount) {
-    const { todos, actions } = this.props
+    const { todos, actions } = this.props;
     if (todos.length > 0) {
       return <input
         className={style.toggleAll}
@@ -40,16 +40,15 @@ class MainSection extends Component {
   }
 
   renderFooter(completedCount) {
-    const { todos, language } = this.props
-    const { filter } = this.state
-    const activeCount = todos.length - completedCount
+    const { todos } = this.props;
+    const { filter } = this.state;
+    const activeCount = todos.length - completedCount;
 
     if (todos.length) {
       return (
         <Footer completedCount={completedCount}
           activeCount={activeCount}
           filter={filter}
-          language={language}
           onClearCompleted={::this.handleClearCompleted}
           onShow={::this.handleShow} />
       )
@@ -57,13 +56,13 @@ class MainSection extends Component {
   }
 
   render() {
-    const { todos, actions } = this.props
-    const { filter } = this.state
+    const { todos, actions } = this.props;
+    const { filter } = this.state;
 
-    const filteredTodos = todos.filter(TODO_FILTERS[filter])
+    const filteredTodos = todos.filter(TODO_FILTERS[filter]);
     const completedCount = todos.reduce((count, todo) => {
       return todo.completed ? count + 1 : count
-    }, 0)
+    }, 0);
 
     return (
       <section className={style.main}>

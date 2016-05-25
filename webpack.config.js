@@ -68,4 +68,4 @@ module.exports = {
     contentBase: './client',
     hot: true
   }
-}
+};

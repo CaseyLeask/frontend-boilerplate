@@ -9,12 +9,22 @@ import * as LanguageActions from '../../actions/languages'
 import style from './style.css'
 
 class App extends Component {
+  static childContextTypes = {
+      language: React.PropTypes.string.isRequired
+  };
+
+  getChildContext() {
+    return {
+      language: this.props.language
+    };
+  }
+
   render() {
-    const { todos, actions, language, children } = this.props
+    const { todos, actions, children } = this.props;
     return (
       <div className={style.normal}>
-        <Header addTodo={actions.addTodo} changeLanguage={actions.changeLanguage} language={language} />
-        <MainSection todos={todos} actions={actions} language={language} />
+        <Header addTodo={actions.addTodo} changeLanguage={actions.changeLanguage} />
+        <MainSection todos={todos} actions={actions} />
         {children}
       </div>
     )

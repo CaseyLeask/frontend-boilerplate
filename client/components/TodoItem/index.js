@@ -6,7 +6,7 @@ import style from './style.css'
 
 class TodoItem extends Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.state = {
       editing: false
     }
@@ -26,9 +26,9 @@ class TodoItem extends Component {
   }
 
   render() {
-    const {todo, completeTodo, deleteTodo} = this.props
+    const {todo, completeTodo, deleteTodo} = this.props;
 
-    let element
+    let element;
     if (this.state.editing) {
       element = (
         <TodoTextInput text={todo.text}
@@ -57,7 +57,7 @@ class TodoItem extends Component {
       [style.completed]: todo.completed,
       [style.editing]: this.state.editing,
       [style.normal]: !this.state.editing
-    })
+    });
 
     return (
       <li className={classes}>
