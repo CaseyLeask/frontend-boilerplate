@@ -44,10 +44,12 @@ class Footer extends Component {
 
   renderClearButton() {
     const { completedCount, onClearCompleted } = this.props;
+    const { language } = this.context;
+
     if (completedCount > 0) {
       return (
         <button className={style.clearCompleted} onClick={onClearCompleted} >
-          Clear completed
+          {translatedText.clearCompleted[language]}
         </button>
       )
     }

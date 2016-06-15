@@ -14,6 +14,10 @@ const translatedText = {
     '中文': '完成',
     'English': 'Completed'
   },
+  clearCompleted: {
+    '中文': '清除已完成',
+    'English': 'Clear Completed'
+  },
   todoCount: {
     '中文': function(count) {
       switch(count) {
