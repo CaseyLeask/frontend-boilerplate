@@ -27,6 +27,10 @@ module.exports = {
         loader: 'file?name=[name].[ext]'
       },
       {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
         test: /\.css$/,
         include: /client/,
         loaders: [

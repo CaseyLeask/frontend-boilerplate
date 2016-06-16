@@ -1,14 +1,13 @@
-
 import React, { Component } from 'react'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../../constants/filters'
 import classnames from 'classnames'
 import style from './style.css'
-import translatedText from './translatedText'
+import languageText from './languageText.json'
 
 const FILTER_TITLES = {
-  [SHOW_ALL]: translatedText.showAll,
-  [SHOW_ACTIVE]: translatedText.showActive,
-  [SHOW_COMPLETED]: translatedText.showCompleted
+  [SHOW_ALL]: 'showAll',
+  [SHOW_ACTIVE]: 'showActive',
+  [SHOW_COMPLETED]: 'showCompleted'
 };
 
 class Footer extends Component {
@@ -16,13 +15,34 @@ class Footer extends Component {
     language: React.PropTypes.string.isRequired
   };
 
+  getCountTextKey(count) {
+    switch(count) {
+      case 0:
+        return "todoCount0";
+      case 1:
+        return "todoCount1";
+      default:
+        return "todoCounts";
+    }
+  }
+
   renderTodoCount() {
     const { activeCount } = this.props;
     const { language } = this.context;
+    const countIndex = this.getCountTextKey(activeCount);
+    let countText;
+
+    if (languageText[language][countIndex].indexOf("{count}") > -1) {
+      countText = languageText[language][countIndex].split("{count}");
+
+      countText.splice(1, 0, <strong>{activeCount.toString()}</strong>);
+    } else {
+      countText = languageText[language][countIndex];
+    }
 
     return (
       <span className={style.count}>
-        {translatedText.todoCount[language](activeCount)}
+        {countText}
       </span>
     )
   }
@@ -31,13 +51,13 @@ class Footer extends Component {
     const { filter: selectedFilter, onShow } = this.props;
     const { language } = this.context;
 
-    const title = FILTER_TITLES[filter][language];
+    const titleKey = FILTER_TITLES[filter];
 
     return (
       <a className={classnames({ [style.selected]: filter === selectedFilter })}
          style={{ cursor: 'pointer' }}
          onClick={() => onShow(filter)}>
-        {title}
+        {languageText[language][titleKey]}
       </a>
     )
   }
@@ -49,7 +69,7 @@ class Footer extends Component {
     if (completedCount > 0) {
       return (
         <button className={style.clearCompleted} onClick={onClearCompleted} >
-          {translatedText.clearCompleted[language]}
+          {languageText[language].clearCompleted}
         </button>
       )
     }
