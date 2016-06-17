@@ -1,5 +1,5 @@
 {
-  "中文": {
+  "zh": {
     "showAll": "所有",
     "showActive": "活性",
     "showCompleted": "完成",
@@ -8,7 +8,7 @@
     "todoCount1": "还剩 {count} 个项目",
     "todoCounts": "{count} 项左"
   },
-  "English": {
+  "en": {
     "showAll": "All",
     "showActive": "Active",
     "showCompleted": "Completed",

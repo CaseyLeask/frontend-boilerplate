@@ -4,12 +4,12 @@ import style from './style.css'
 
 const translatedText = {
   todos: {
-    '中文': '待办事项',
-    'English': 'Todos'
+    'zh': '待办事项',
+    'en': 'Todos'
   },
   placeholder: {
-    '中文': '需要做什么？',
-    'English': 'What needs to be done?'
+    'zh': '需要做什么？',
+    'en': 'What needs to be done?'
   }
 };
 
@@ -25,17 +25,23 @@ class Header extends Component {
   }
 
   handleLanguage(event) {
-    this.props.changeLanguage(event.target.textContent);
+    this.props.changeLanguage(event.target.value);
   }
 
   nextLanguage(text) {
     switch(text) {
-      case '中文':
-        return 'English';
+      case 'zh':
+        return {
+          display: 'English',
+          value:   'en'
+        };
 
-      case 'English':
+      case 'en':
       default:
-        return '中文';
+        return {
+          display: '中文',
+          value:   'zh'
+        };
     }
   }
 
@@ -44,7 +50,11 @@ class Header extends Component {
     return (
       <header>
         <h1 className={style.todos}>{translatedText.todos[language]}</h1>
-        <button className={style.language} onClick={::this.handleLanguage}>{this.nextLanguage(language)}</button>
+        <button className={style.language}
+                onClick={::this.handleLanguage}
+                value={this.nextLanguage(language).value}>
+          {this.nextLanguage(language).display}
+        </button>
         <TodoTextInput
           newTodo
           onSave={::this.handleSave}
