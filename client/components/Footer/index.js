@@ -15,6 +15,10 @@ class Footer extends Component {
     language: React.PropTypes.string.isRequired
   };
 
+  translateText(key) {
+    return languageText[this.context.language][key];
+  }
+
   getCountTextKey(count) {
     switch(count) {
       case 0:
@@ -28,16 +32,13 @@ class Footer extends Component {
 
   renderTodoCount() {
     const { activeCount } = this.props;
-    const { language } = this.context;
     const countIndex = this.getCountTextKey(activeCount);
-    let countText;
+    let countText = this.translateText(countIndex);
 
-    if (languageText[language][countIndex].indexOf("{count}") > -1) {
-      countText = languageText[language][countIndex].split("{count}");
+    if (countText.indexOf("{count}") > -1) {
+      countText = countText.split("{count}");
 
       countText.splice(1, 0, <strong>{activeCount.toString()}</strong>);
-    } else {
-      countText = languageText[language][countIndex];
     }
 
     return (
@@ -49,27 +50,24 @@ class Footer extends Component {
 
   renderFilterLink(filter) {
     const { filter: selectedFilter, onShow } = this.props;
-    const { language } = this.context;
-
     const titleKey = FILTER_TITLES[filter];
 
     return (
       <a className={classnames({ [style.selected]: filter === selectedFilter })}
          style={{ cursor: 'pointer' }}
          onClick={() => onShow(filter)}>
-        {languageText[language][titleKey]}
+        {this.translateText(titleKey)}
       </a>
     )
   }
 
   renderClearButton() {
     const { completedCount, onClearCompleted } = this.props;
-    const { language } = this.context;
 
     if (completedCount > 0) {
       return (
         <button className={style.clearCompleted} onClick={onClearCompleted} >
-          {languageText[language].clearCompleted}
+          {this.translateText('clearCompleted')}
         </button>
       )
     }
@@ -92,4 +90,4 @@ class Footer extends Component {
   }
 }
 
-export default Footer
+export default Footer;
